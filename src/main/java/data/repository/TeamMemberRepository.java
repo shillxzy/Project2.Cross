@@ -1,5 +1,6 @@
-package data;
+package data.repository;
 
+import data.TeamMember;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

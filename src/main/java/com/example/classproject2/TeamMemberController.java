@@ -1,7 +1,7 @@
 package com.example.classproject2;
 
 import data.TeamMember;
-import data.TeamMemberRepository;
+import data.repository.TeamMemberRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
