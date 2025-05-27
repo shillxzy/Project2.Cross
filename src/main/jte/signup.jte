@@ -28,12 +28,6 @@
         <label for="password">Пароль:</label>
         <input type="password" id="password" name="password" required />
 
-        <label for="role">Роль:</label>
-        <select id="role" name="role" required>
-            <option value="USER" selected>USER</option>
-            <option value="ADMIN">ADMIN</option>
-        </select>
-
         <button type="submit">Зареєструватися</button>
     </form>
 

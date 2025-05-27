@@ -126,11 +126,12 @@
 </head>
 <body>
 <div class="container">
-    <h1>Welcome to personal Steve Jobs site!</h1>
+    <h1>WELCOME TO APPLE COMPANY!</h1>
     <nav class="navigation">
         <a href="home">Home</a>
         <a href="team">Team</a>
         <a href="projects">Projects</a>
+        <a href="profile">Profile</a>
     </nav>
     <main class="content">
         ${content}

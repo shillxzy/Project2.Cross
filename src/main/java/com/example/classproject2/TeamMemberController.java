@@ -21,6 +21,6 @@ public class TeamMemberController {
     public String listTeamMembers(Model model) {
         List<TeamMember> team = teamMemberRepository.findAll();
         model.addAttribute("team", team);
-        return "team"; // твій шаблон team.jte
+        return "team";
     }
 }
