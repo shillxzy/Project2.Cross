@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -58,6 +59,44 @@ public class AdminController {
         user.setRole(role);
         userRepository.save(user);
 
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/users/{id}/edit")
+    public String editUserForm(@PathVariable Long id, Model model) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            return "redirect:/admin?createError=Користувача не знайдено";
+        }
+
+        model.addAttribute("user", userOpt.get());
+        return "edit-user";
+    }
+
+
+
+    @PostMapping("/users/{id}/edit")
+    public String editUserSubmit(
+            @PathVariable Long id,
+            @RequestParam String username,
+            @RequestParam(required = false) String password,
+            @RequestParam String role,
+            RedirectAttributes redirectAttributes
+    ) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            redirectAttributes.addFlashAttribute("createError", "Користувача не знайдено");
+            return "redirect:/admin";
+        }
+
+        User user = userOpt.get();
+        user.setUsername(username);
+        if (password != null && !password.isBlank()) {
+            user.setPassword(passwordEncoder.encode(password));
+        }
+        user.setRole(role);
+
+        userRepository.save(user);
         return "redirect:/admin";
     }
 
