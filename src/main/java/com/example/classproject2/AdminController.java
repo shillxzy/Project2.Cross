@@ -100,6 +100,19 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @PostMapping("/users/{id}/delete")
+    public String deleteUser(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            redirectAttributes.addFlashAttribute("createError", "Користувача не знайдено");
+            return "redirect:/admin";
+        }
+
+        userRepository.deleteById(id);
+        return "redirect:/admin";
+    }
+
+
 
 
 

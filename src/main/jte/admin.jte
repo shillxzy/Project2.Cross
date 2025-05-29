@@ -131,6 +131,10 @@
                         <form method="get" action="/admin/users/${user.getId()}/edit" style="display:inline;">
                             <button type="submit" class="action-btn" style="background-color:#f39c12;">✏️ Редагувати</button>
                         </form>
+                        <form method="post" action="/admin/users/${user.getId()}/delete" style="display:inline;">
+                            <button type="submit" class="action-btn" style="background-color:#e74c3c;">🗑️ Видалити</button>
+                        </form>
+
                     </td>
                 </tr>
             @endfor
