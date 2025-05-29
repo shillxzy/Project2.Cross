@@ -29,19 +29,51 @@ public class AdminController {
             Model model,
             @RequestParam(required = false) String createError,
             @RequestParam(required = false, defaultValue = "id") String sortField,
-            @RequestParam(required = false, defaultValue = "asc") String sortDir
+            @RequestParam(required = false, defaultValue = "asc") String sortDir,
+            @RequestParam(required = false) String query
     ) {
+        List<User> users;
+
         Sort sort = Sort.by(sortField);
         sort = sortDir.equalsIgnoreCase("asc") ? sort.ascending() : sort.descending();
 
-        List<User> users = (List<User>) userRepository.findAll(sort);
+        if (query != null && !query.isBlank()) {
+            users = userRepository.findByUsernameContainingIgnoreCase(query, sort);
+        } else {
+            users = (List<User>) userRepository.findAll(sort);
+        }
+
         model.addAttribute("users", users);
         model.addAttribute("createError", createError);
         model.addAttribute("sortField", sortField);
         model.addAttribute("sortDir", sortDir);
         model.addAttribute("reverseSortDir", sortDir.equalsIgnoreCase("asc") ? "desc" : "asc");
+        model.addAttribute("searchQuery", query);
+
         return "admin";
     }
+
+    @GetMapping("/search")
+    public String searchUsers(
+            @RequestParam String query,
+            Model model,
+            @RequestParam(required = false, defaultValue = "id") String sortField,
+            @RequestParam(required = false, defaultValue = "asc") String sortDir
+    ) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equalsIgnoreCase("asc") ? sort.ascending() : sort.descending();
+
+        List<User> users = userRepository.findByUsernameContainingIgnoreCase(query, sort);
+        model.addAttribute("users", users);
+        model.addAttribute("searchQuery", query);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equalsIgnoreCase("asc") ? "desc" : "asc");
+
+        return "admin";
+    }
+
+
 
     @PostMapping("/users/{id}/change-role")
     public String changeRole(@PathVariable Long id) {

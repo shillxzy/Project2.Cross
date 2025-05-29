@@ -1,6 +1,7 @@
 @import data.User
 @param java.util.List<User> users
 @param String createError
+@param String searchQuery
 
 @template.main(content = @`
     <style>
@@ -114,6 +115,20 @@
         </form>
 
         <h2>📋 Список користувачів</h2>
+
+        <form method="get" action="/admin/search" style="margin-bottom: 15px;">
+            <input
+                    type="text"
+                    name="query"
+                    placeholder="Пошук..."
+                    value="${searchQuery != null ? searchQuery : ""}"
+                    style="padding: 5px; width: 250px; border: 1px solid #ccc; border-radius: 4px;"
+            />
+            <button type="submit" style="padding: 6px 12px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                🔍
+            </button>
+        </form>
+
         <table>
             <thead>
             <tr>
