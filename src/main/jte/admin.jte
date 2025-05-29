@@ -116,7 +116,30 @@
         <h2>📋 Список користувачів</h2>
         <table>
             <thead>
-            <tr><th>ID</th><th>Username</th><th>Role</th><th>Дія</th></tr>
+            <tr>
+                <th style="white-space: nowrap;">
+                    ID
+                    <span style="margin-left: 5px;">
+            <a href="/admin?sortField=id&sortDir=asc" style="text-decoration:none; font-size: 0.8em; margin-right: 3px;">⬆️</a>
+            <a href="/admin?sortField=id&sortDir=desc" style="text-decoration:none; font-size: 0.8em;">⬇️</a>
+        </span>
+                </th>
+                <th style="white-space: nowrap;">
+                    Username
+                    <span style="margin-left: 5px;">
+            <a href="/admin?sortField=username&sortDir=asc" style="text-decoration:none; font-size: 0.8em; margin-right: 3px;">⬆️</a>
+            <a href="/admin?sortField=username&sortDir=desc" style="text-decoration:none; font-size: 0.8em;">⬇️</a>
+        </span>
+                </th>
+                <th style="white-space: nowrap;">
+                    Role
+                    <span style="margin-left: 5px;">
+            <a href="/admin?sortField=role&sortDir=asc" style="text-decoration:none; font-size: 0.8em; margin-right: 3px;">⬆️</a>
+            <a href="/admin?sortField=role&sortDir=desc" style="text-decoration:none; font-size: 0.8em;">⬇️</a>
+        </span>
+                </th>
+                <th>Дія</th>
+            </tr>
             </thead>
             <tbody>
             @for(var user : users)

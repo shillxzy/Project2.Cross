@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +25,21 @@ public class AdminController {
     }
 
     @GetMapping
-    public String adminPanel(Model model, @RequestParam(required = false) String createError) {
-        List<User> users = (List<User>) userRepository.findAll();
+    public String adminPanel(
+            Model model,
+            @RequestParam(required = false) String createError,
+            @RequestParam(required = false, defaultValue = "id") String sortField,
+            @RequestParam(required = false, defaultValue = "asc") String sortDir
+    ) {
+        Sort sort = Sort.by(sortField);
+        sort = sortDir.equalsIgnoreCase("asc") ? sort.ascending() : sort.descending();
+
+        List<User> users = (List<User>) userRepository.findAll(sort);
         model.addAttribute("users", users);
         model.addAttribute("createError", createError);
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equalsIgnoreCase("asc") ? "desc" : "asc");
         return "admin";
     }
 
